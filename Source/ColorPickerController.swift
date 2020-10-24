@@ -10,10 +10,11 @@ open class ColorPickerController: NSObject {
     open var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
     
     // Hue Picker
-    open var huePicker:HuePicker
+    open var huePicker: HuePicker
     
     // Color Well
-    open var colorWell:ColorWell {
+    open var colorWell: ColorWell {
+        
         didSet {
             huePicker.setHueFromColor(colorWell.color)
             colorPicker.color =  colorWell.color
@@ -36,6 +37,7 @@ open class ColorPickerController: NSObject {
     }
     
     public init(svPickerView:ColorPicker, huePickerView:HuePicker, colorWell:ColorWell) {
+        
         self.huePicker = huePickerView
         self.colorPicker = svPickerView
         self.colorWell = colorWell

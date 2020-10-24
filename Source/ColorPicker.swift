@@ -8,17 +8,17 @@ import UIKit
 
 @IBDesignable open class ColorPicker: UIView {
 
-    fileprivate var pickerImage1:PickerImage?
-    fileprivate var pickerImage2:PickerImage?
+    fileprivate var pickerImage1: PickerImage?
+    fileprivate var pickerImage2: PickerImage?
     fileprivate var image:UIImage?
     fileprivate var data1Shown = false
-    fileprivate lazy var opQueue:OperationQueue = { return OperationQueue() }()
+    fileprivate lazy var opQueue: OperationQueue = { return OperationQueue() }()
     fileprivate var lock:NSLock = NSLock()
     fileprivate var rerender = false
     open var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
 
 
-    open var a:CGFloat = 1 {
+    open var a: CGFloat = 1 {
         didSet {
             if a < 0 || a > 1 {
                 a = max(0, min(1, a))
@@ -26,7 +26,7 @@ import UIKit
         }
     }
 
-    open var h:CGFloat = 0 { // // [0,1]
+    open var h: CGFloat = 0 { // // [0,1]
         didSet {
             if h > 1 || h < 0 {
                 h = max(0, min(1, h))
@@ -47,7 +47,7 @@ import UIKit
         return currentPoint.y
     }
 
-    open var color:UIColor  {
+    open var color: UIColor  {
         set(value) {
             var hue:CGFloat = 1
             var saturation:CGFloat = 1
@@ -74,9 +74,14 @@ import UIKit
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+        
+        // p add border
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.black.cgColor
     }
 
     func commonInit() {
+        
         isUserInteractionEnabled = true
         clipsToBounds = false
         self.addObserver(self, forKeyPath: "bounds",

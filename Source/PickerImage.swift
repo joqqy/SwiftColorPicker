@@ -69,6 +69,7 @@ public struct PickerImage {
     // MARK: Size changes
 
     mutating func changeSize(width: Int, height: Int) {
+        
         lockQueue.sync() {
             self.width = width
             self.height = height
@@ -83,6 +84,7 @@ public struct PickerImage {
     // MARK: Lifecycle
 
     init(width:Int, height:Int) {
+        
         self.width = width
         self.height = height
 

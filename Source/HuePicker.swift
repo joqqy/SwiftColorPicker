@@ -36,13 +36,19 @@ import CoreGraphics
     }
     
     public override init(frame: CGRect) {
+        
         super.init(frame: frame)
-        isUserInteractionEnabled = true;
+        isUserInteractionEnabled = true
     }
 
     public required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
         isUserInteractionEnabled = true
+        
+        // p add border
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.black.cgColor
     }
     
     
@@ -70,10 +76,11 @@ import CoreGraphics
         let widthRatio:Double = 360 / Double(bounds.width)
         var d = data!
         for hi in 0..<Int(bounds.width) {
-            let double_h:Double = widthRatio * Double(hi) / 60
-            let sector:Int = Int(floor(double_h))
-            let f:Double = double_h - Double(sector)
-            let f1:Double = 1.0 - f
+            
+            let double_h: Double = widthRatio * Double(hi) / 60
+            let sector: Int = Int(floor(double_h))
+            let f: Double = double_h - Double(sector)
+            let f1: Double = 1.0 - f
             double_v = Double(1)
             double_s = Double(1)
             p = double_v * (1.0 - double_s) * 255
@@ -126,11 +133,11 @@ import CoreGraphics
             space: colorSpace, bitmapInfo: bitmapInfo, provider: provider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
         
         
-        image = UIImage(cgImage: cgimg!)
-        
+        self.image = UIImage(cgImage: cgimg!)
     }
     
-    fileprivate func handleTouch(_ touch:UITouch, finished:Bool) {
+    fileprivate func handleTouch(_ touch: UITouch, finished: Bool) {
+        
         let point = touch.location(in: self)
         currentPoint = CGPoint(x: max(0, min(bounds.width, point.x)) / bounds.width , y: 0)
         _h = currentPoint.x
@@ -167,19 +174,19 @@ import CoreGraphics
     
     func drawHueDragHandler(frame: CGRect) {
         
-        /// General Declarations
+        // General Declarations
         let context = UIGraphicsGetCurrentContext()!
         
-        /// Shadow Declarations
+        // Shadow Declarations
         let shadow = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
         let shadowOffset = CGSize(width: 3.1, height: 3.1)
         let shadowBlurRadius: CGFloat = 3
-        
+        // Set context state
         context.saveGState()
         context.setShadow(offset: shadowOffset, blur: shadowBlurRadius, color: shadow)
         
         
-        /// Polygon Drawing
+        // Polygon Drawing - upper handle
         let polygonPath = UIBezierPath()
         polygonPath.move(to: CGPoint(x: frame.minX + 4, y: frame.maxY - 13))
         polygonPath.addLine(to: CGPoint(x: frame.minX + 4, y: frame.maxY))
@@ -190,7 +197,7 @@ import CoreGraphics
         polygonPath.fill()
         
         
-        /// Polygon 2 Drawing
+        // Polygon 2 Drawing - lower handle
         let polygon2Path = UIBezierPath()
         polygon2Path.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 13))
         polygon2Path.addLine(to: CGPoint(x: frame.minX + 4, y: frame.minY))
@@ -200,6 +207,7 @@ import CoreGraphics
         UIColor.white.setFill()
         polygon2Path.fill()
         
+        // Restore context state
         context.restoreGState()
     }
 }
