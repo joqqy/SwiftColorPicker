@@ -4,6 +4,7 @@
 //  URL: https://github.com/MrMatthias/SwiftColorPicker
 
 import UIKit
+import CoreGraphics
 
 @IBDesignable open class HuePicker: UIView {
     
@@ -159,34 +160,47 @@ import UIKit
             img.draw(in: rect)
         }
 
-        let handleRect = CGRect(x: bounds.width * currentPoint.x-3, y: 0, width: 6, height: bounds.height)
+        let handleRect = CGRect(x: bounds.width * currentPoint.x - /*:3*/5, y: 0,
+                                width: 6, height: bounds.height)
         drawHueDragHandler(frame: handleRect)
     }
     
     func drawHueDragHandler(frame: CGRect) {
         
+        /// General Declarations
+        let context = UIGraphicsGetCurrentContext()!
+        
+        /// Shadow Declarations
+        let shadow = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
+        let shadowOffset = CGSize(width: 3.1, height: 3.1)
+        let shadowBlurRadius: CGFloat = 3
+        
+        context.saveGState()
+        context.setShadow(offset: shadowOffset, blur: shadowBlurRadius, color: shadow)
+        
+        
         /// Polygon Drawing
         let polygonPath = UIBezierPath()
-        polygonPath.move(to: CGPoint(x: frame.minX + 4, y: frame.maxY - 6))
-        polygonPath.addLine(to: CGPoint(x: frame.minX + 7.46, y: frame.maxY))
-        polygonPath.addLine(to: CGPoint(x: frame.minX + 0.54, y: frame.maxY))
+        polygonPath.move(to: CGPoint(x: frame.minX + 4, y: frame.maxY - 13))
+        polygonPath.addLine(to: CGPoint(x: frame.minX + 4, y: frame.maxY))
+        polygonPath.addLine(to: CGPoint(x: frame.minX + 6, y: frame.maxY))
+        polygonPath.addLine(to: CGPoint(x: frame.minX + 6, y: frame.maxY - 13))
         polygonPath.close()
-        UIColor.black.setFill()
+        UIColor.white.setFill()
         polygonPath.fill()
         
         
         /// Polygon 2 Drawing
         let polygon2Path = UIBezierPath()
-        polygon2Path.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 6))
-        polygon2Path.addLine(to: CGPoint(x: frame.minX + 7.46, y: frame.minY))
-        polygon2Path.addLine(to: CGPoint(x: frame.minX + 0.54, y: frame.minY))
+        polygon2Path.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 13))
+        polygon2Path.addLine(to: CGPoint(x: frame.minX + 4, y: frame.minY))
+        polygon2Path.addLine(to: CGPoint(x: frame.minX + 6, y: frame.minY))
+        polygon2Path.addLine(to: CGPoint(x: frame.minX + 6, y: frame.minY + 13))
         polygon2Path.close()
         UIColor.white.setFill()
         polygon2Path.fill()
+        
+        context.restoreGState()
     }
-
-
-
-
 }
 
