@@ -133,7 +133,7 @@ public struct PickerImage {
                                  blue: &blue,
                                  alpha: &alpha)
 
-                    let index = currentBrightnessIndex * width + currentSaturationIndex
+                    let index: Int = currentBrightnessIndex * width + currentSaturationIndex
                     self.pixelData[index] = PixelData(a: UInt8(alpha * 255.0),
                                                       r: UInt8(red * 255.0),
                                                       g: UInt8(green * 255.0),
