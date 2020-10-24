@@ -20,10 +20,11 @@ public struct PickerImage {
     // MARK: Pixel Data struct
 
     public struct PixelData {
-        var a:UInt8 = 255
-        var r:UInt8
-        var g:UInt8
-        var b:UInt8
+        
+        var a: UInt8 = 255
+        var r: UInt8
+        var g: UInt8
+        var b: UInt8
     }
 
     var pixelData: [PixelData]
@@ -71,6 +72,7 @@ public struct PickerImage {
     mutating func changeSize(width: Int, height: Int) {
         
         lockQueue.sync() {
+            
             self.width = width
             self.height = height
 
@@ -83,7 +85,7 @@ public struct PickerImage {
 
     // MARK: Lifecycle
 
-    init(width:Int, height:Int) {
+    init(width: Int, height: Int) {
         
         self.width = width
         self.height = height
@@ -115,7 +117,6 @@ public struct PickerImage {
                 var currentSaturationIndex = 0
                 while currentSaturationIndex < saturationSteps {
 
-
                     let currentSaturation = CGFloat(currentSaturationIndex) * saturationStepSize
                     let currentBrightness = CGFloat(currentBrightnessIndex) * brightnessStepSize
                     let color = UIColor(hue: hue,
@@ -127,7 +128,10 @@ public struct PickerImage {
                     var green: CGFloat = 0
                     var blue: CGFloat = 0
                     var alpha: CGFloat = 0
-                    color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+                    color.getRed(&red,
+                                 green: &green,
+                                 blue: &blue,
+                                 alpha: &alpha)
 
                     let index = currentBrightnessIndex * width + currentSaturationIndex
                     self.pixelData[index] = PixelData(a: UInt8(alpha * 255.0),
