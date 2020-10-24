@@ -7,21 +7,24 @@ import UIKit
 
 @IBDesignable open class HuePicker: UIView {
     
-    var _h:CGFloat = 0.1111
-    open var h:CGFloat { // [0,1]
+    var _h: CGFloat = 0.1111
+    open var h: CGFloat { // [0,1]
+        
         set(value) {
+            
             _h = min(1, max(0, value))
             currentPoint = CGPoint(x: CGFloat(_h), y: 0)
             setNeedsDisplay()
         }
+        
         get {
             return _h
         }
     }
-    var image:UIImage?
-    fileprivate var data:[UInt8]?
+    var image: UIImage?
+    fileprivate var data: [UInt8]?
     fileprivate var currentPoint = CGPoint.zero
-    open var handleColor:UIColor = UIColor.black
+    open var handleColor: UIColor = UIColor.black
     
     open var onHueChange:((_ hue:CGFloat, _ finished:Bool) -> Void)?
     
@@ -43,6 +46,7 @@ import UIKit
     
     
     func renderBitmap() {
+        
         if bounds.isEmpty {
             return
         }
@@ -147,6 +151,7 @@ import UIKit
     
     
     override open func draw(_ rect: CGRect) {
+        
         if image == nil {
             renderBitmap()
         }
@@ -160,7 +165,7 @@ import UIKit
     
     func drawHueDragHandler(frame: CGRect) {
         
-        //// Polygon Drawing
+        /// Polygon Drawing
         let polygonPath = UIBezierPath()
         polygonPath.move(to: CGPoint(x: frame.minX + 4, y: frame.maxY - 6))
         polygonPath.addLine(to: CGPoint(x: frame.minX + 7.46, y: frame.maxY))
@@ -170,7 +175,7 @@ import UIKit
         polygonPath.fill()
         
         
-        //// Polygon 2 Drawing
+        /// Polygon 2 Drawing
         let polygon2Path = UIBezierPath()
         polygon2Path.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 6))
         polygon2Path.addLine(to: CGPoint(x: frame.minX + 7.46, y: frame.minY))
