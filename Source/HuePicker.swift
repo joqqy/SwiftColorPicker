@@ -48,7 +48,7 @@ import CoreGraphics
         
         // p add border
         self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderColor = UIColor.gray.cgColor
     }
     
     

@@ -14,13 +14,13 @@ import UIKit
         }
     }
 
-    open var previewColor:UIColor? {
+    open var previewColor: UIColor? {
         
         didSet {
             setNeedsDisplay()
         }
     }
-    @IBInspectable open var borderColor: UIColor = UIColor.darkGray {
+    @IBInspectable open var borderColor: UIColor = UIColor.gray {
         
         didSet {
             setNeedsDisplay()
@@ -60,6 +60,8 @@ import UIKit
         color.setFill()
         ovalPath.fill()
         
+        // p draws half of the circle
+        // TODO: we want rectangles instead
         if let col = previewColor {
             
             let ovalRect = CGRect(x: 5.5, y: 5.5, width: 35, height: 35)
@@ -76,6 +78,4 @@ import UIKit
         ovalPath.lineWidth = borderWidth
         ovalPath.stroke()
     }
-
-
 }

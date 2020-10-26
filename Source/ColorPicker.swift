@@ -19,7 +19,9 @@ import UIKit
 
 
     open var a: CGFloat = 1 {
+        
         didSet {
+            
             if a < 0 || a > 1 {
                 a = max(0, min(1, a))
             }
@@ -27,7 +29,9 @@ import UIKit
     }
 
     open var h: CGFloat = 0 { // // [0,1]
+        
         didSet {
+            
             if h > 1 || h < 0 {
                 h = max(0, min(1, h))
             }
@@ -63,6 +67,7 @@ import UIKit
             currentPoint = CGPoint(x: saturation, y: brightness)
             self.setNeedsDisplay()
         }
+        
         get {
             return UIColor(hue: h, saturation: saturationFromCurrentPoint(), brightness: brigthnessFromCurrentPoint(), alpha: a)
         }
@@ -74,12 +79,13 @@ import UIKit
     }
 
     public required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
         commonInit()
         
         // p add border
         self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderColor = UIColor.gray.cgColor
     }
 
     func commonInit() {
