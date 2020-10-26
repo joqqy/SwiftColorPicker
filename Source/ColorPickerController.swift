@@ -7,7 +7,7 @@ import UIKit
 
 open class ColorPickerController: NSObject {
     
-    open var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
+    open var onColorChange:((_ color:UIColor, _ finished: Bool)->Void)? = nil
     
     // Hue Picker
     open var huePicker: HuePicker
@@ -17,20 +17,22 @@ open class ColorPickerController: NSObject {
         
         didSet {
             huePicker.setHueFromColor(colorWell.color)
-            colorPicker.color =  colorWell.color
+            colorPicker.color = colorWell.color
         }
     }
     
     
     // Color Picker
-    open var colorPicker:ColorPicker
+    open var colorPicker: ColorPicker
     
-    open var color:UIColor? {
+    open var color: UIColor? {
+        
         set(value) {
             colorPicker.color = value!
             colorWell.color = value!
             huePicker.setHueFromColor(value!)
         }
+        
         get {
             return colorPicker.color
         }

@@ -174,14 +174,14 @@ import CoreGraphics
     
     func drawHueDragHandler(frame: CGRect) {
         
-        // General Declarations
+        // p General Declarations
         let context = UIGraphicsGetCurrentContext()!
         
-        // Shadow Declarations
+        // p Shadow Declarations
         let shadow = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
         let shadowOffset = CGSize(width: 3.1, height: 3.1)
         let shadowBlurRadius: CGFloat = 3
-        // Set context state
+        // p Set context state
         context.saveGState()
         context.setShadow(offset: shadowOffset, blur: shadowBlurRadius, color: shadow)
         
@@ -196,7 +196,6 @@ import CoreGraphics
         UIColor.white.setFill()
         polygonPath.fill()
         
-        
         // Polygon 2 Drawing - lower handle
         let polygon2Path = UIBezierPath()
         polygon2Path.move(to: CGPoint(x: frame.minX + 4, y: frame.minY + 13))
@@ -207,7 +206,8 @@ import CoreGraphics
         UIColor.white.setFill()
         polygon2Path.fill()
         
-        // Restore context state
+        
+        // p Restore context state
         context.restoreGState()
     }
 }

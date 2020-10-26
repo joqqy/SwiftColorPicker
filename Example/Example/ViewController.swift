@@ -25,8 +25,7 @@ class ViewController: UIViewController {
         */
         pickerController?.onColorChange = {(color, finished) in
 
-                self.label.textColor = color  // In this example we simply apply the color to a Label
-
+            self.label.textColor = color  // In this example we simply apply the color to a Label
         }
     }
 

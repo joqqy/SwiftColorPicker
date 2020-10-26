@@ -15,7 +15,7 @@ public struct PickerImage {
 
     let lockQueue = DispatchQueue(label: "PickerImage")
     private let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-    private let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
+    private let bitmapInfo: CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
 
     // MARK: Pixel Data struct
 
@@ -32,10 +32,11 @@ public struct PickerImage {
     // MARK: Image generation
 
     public func getImage() -> UIImage? {
-        return self.imageFromARGB32Bitmap(pixels: self.pixelData, width: UInt(self.width), height: UInt(self.height))
+        return self.imageFromARGB32Bitmap(pixels: self.pixelData,
+                                          width: UInt(self.width), height: UInt(self.height))
     }
 
-    private func imageFromARGB32Bitmap(pixels:[PixelData], width:UInt, height:UInt) -> UIImage? {
+    private func imageFromARGB32Bitmap(pixels: [PixelData], width: UInt, height: UInt) -> UIImage? {
 
         let bitsPerComponent:UInt = 8
         let bitsPerPixel:UInt = 32
@@ -43,10 +44,8 @@ public struct PickerImage {
         assert(pixels.count == Int(width * height))
 
         var data = pixels // Copy to mutable []
-        guard let providerRef = CGDataProvider(
-            data: NSData(bytes: &data, length: data.count * MemoryLayout<PixelData>.size)
-            ) else {
-                return nil
+        guard let providerRef = CGDataProvider(data: NSData(bytes: &data, length: data.count * MemoryLayout<PixelData>.size)) else {
+            return nil
         }
 
         guard let cgim = CGImage(width: Int(width),
@@ -64,6 +63,10 @@ public struct PickerImage {
         }
 
         let image = UIImage(cgImage: cgim)
+        
+        // p test flip image, this works, but this is not what is being read from, I think this is only visual
+//        let image: UIImage = UIImage(cgImage: cgim, scale: 1.0, orientation: UIImage.Orientation.downMirrored)
+        
         return image
     }
 

@@ -10,12 +10,12 @@ import UIKit
 
     fileprivate var pickerImage1: PickerImage?
     fileprivate var pickerImage2: PickerImage?
-    fileprivate var image:UIImage?
+    fileprivate var image: UIImage?
     fileprivate var data1Shown = false
     fileprivate lazy var opQueue: OperationQueue = { return OperationQueue() }()
     fileprivate var lock:NSLock = NSLock()
     fileprivate var rerender = false
-    open var onColorChange:((_ color:UIColor, _ finished:Bool)->Void)? = nil
+    open var onColorChange:((_ color: UIColor, _ finished: Bool)->Void)? = nil
 
 
     open var a: CGFloat = 1 {
@@ -48,11 +48,13 @@ import UIKit
     }
 
     open var color: UIColor  {
+        
         set(value) {
-            var hue:CGFloat = 1
-            var saturation:CGFloat = 1
-            var brightness:CGFloat = 1
-            var alpha:CGFloat = 1
+            
+            var hue: CGFloat = 1
+            var saturation: CGFloat = 1
+            var brightness: CGFloat = 1
+            var alpha: CGFloat = 1
             value.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
             a = alpha
             if hue != h || pickerImage1 == nil {
@@ -126,7 +128,8 @@ import UIKit
         handleTouche(touch, ended: true)
     }
 
-    fileprivate func handleColorChange(_ color:UIColor, changing:Bool) {
+    fileprivate func handleColorChange(_ color: UIColor, changing: Bool) {
+        
         if color !== self.color {
             if let handler = onColorChange {
                 handler(color, !changing)
@@ -151,6 +154,7 @@ import UIKit
     }
 
     fileprivate func renderBitmap() {
+        
         if self.bounds.isEmpty {
             return
         }
