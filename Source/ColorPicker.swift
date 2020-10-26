@@ -13,7 +13,7 @@ import UIKit
     fileprivate var image: UIImage?
     fileprivate var data1Shown = false
     fileprivate lazy var opQueue: OperationQueue = { return OperationQueue() }()
-    fileprivate var lock:NSLock = NSLock()
+    fileprivate var lock: NSLock = NSLock()
     fileprivate var rerender = false
     open var onColorChange:((_ color: UIColor, _ finished: Bool)->Void)? = nil
 
@@ -96,18 +96,24 @@ import UIKit
     }
 
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         if keyPath == "bounds" {
+            
             if(bounds.isEmpty) {
                 return
             }
+            
             if var pImage1 = pickerImage1 {
                 pImage1.changeSize(width: Int(self.bounds.width), height: Int(self.bounds.height))
             }
+            
             if var pImage2 = pickerImage2 {
                 pImage2.changeSize(width: Int(self.bounds.width), height: Int(self.bounds.height))
             }
+            
             renderBitmap()
             self.setNeedsDisplay()
+            
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -180,6 +186,7 @@ import UIKit
 
             // make changes visible
             OperationQueue.main.addOperation({ () -> Void in
+                
                 self.setNeedsDisplay()
                 self.lock.unlock()
                 if self.rerender {
